@@ -1,0 +1,36 @@
+import pytest
+
+class TestStr:
+    #Type conversion
+    @pytest.mark.parametrize("s, expected", [('', False), ('1', True)])
+    def test_str_type(self, s, expected):
+        assert bool(s) == expected
+
+    #Strings sum
+    def test_str_sum(self):
+        s1 = '1234'
+        s2 = '5678'
+        s = s1 + s2
+        assert s == '12345678'
+
+    #Index error
+    def test_str_index_error(self):
+        s = '1234'
+        with pytest.raises(IndexError):
+            assert s[4] == '2'
+
+class TestTuple:
+    #Generate tuple
+    def test_len_tuple(self):
+        t = (1, 2, 3)
+        assert len(t) == 3
+
+    #Type Error
+    def test_edit_tuple(self):
+        t = (1, 2, 3)
+        with pytest.raises(TypeError):
+            t[2] = 4
+
+    @pytest.mark.parametrize("t1, t2, expected", [((1, 2), (3,), (1, 2, 3)), ((1, 2), (), (1, 2)), ((), (), ())])
+    def test_add_tuples(self, t1, t2, expected):
+        assert (t1 + t2) == expected
